@@ -33,7 +33,7 @@ module RouteC
       require 'pi_piper'
 
       print 'Waiting for you to push the button... '
-      PiPiper.after :pin => 21, :goes => :high do
+      PiPiper.watch pin: 21 do
         puts 'done'
         print 'Getting data... '
         routec = RouteC::Query.new 'euston', 'southbound', '2015-09-23T08:15'
