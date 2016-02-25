@@ -12,7 +12,7 @@ module RouteC
     end
 
     it 'has some config' do
-      expect(route_c.config['base_url']).to eq 'http://goingunderground.herokuapp.com/stations/arriving/'
+      expect(described_class.config['base_url']).to eq 'http://goingunderground.herokuapp.com/stations/arriving/'
     end
 
     it 'sets a default datetime' do
@@ -43,6 +43,56 @@ module RouteC
 
     it 'gets the average occupancy', :vcr do
       expect(route_c.average_occupancy).to eq(18)
+    end
+
+    context 'light the elements' do
+      context 'populates the correct array elements' do
+        it 'has 0 elements for a 0% average' do
+          expect(described_class.num_elements 0).to eq (0)
+        end
+
+        it 'has 8 elements for a 100% average' do
+          expect(described_class.num_elements 100).to eq 8
+        end
+
+        it 'has 4 elements for a 50% average' do
+          expect(described_class.num_elements 50).to eq 4
+        end
+
+        it 'has 6 elements for a 79% average' do
+          expect(described_class.num_elements 79).to eq 6
+        end
+
+        it 'has 7 elements for a 82% average' do
+          expect(described_class.num_elements 82).to eq 7
+        end
+
+        it 'has 1 element for a 18% average' do
+          expect(described_class.num_elements 18).to eq 1
+        end
+      end
+
+      context 'with different total elements' do
+        it 'has 19 out of 32 elements for a 60%' do
+          expect(described_class.num_elements 60, 32).to eq 19
+        end
+      end
+
+      context 'as an array', :vcr do
+        it 'returns an array for an average of 18%' do
+          expect(route_c.to_a).to eq [1, 0, 0, 0, 0, 0, 0, 0]
+        end
+
+        it 'returns an array for an average of 50%' do
+          allow(route_c).to receive(:average_occupancy) { 50 }
+          expect(route_c.to_a).to eq [1, 1, 1, 1, 0, 0, 0, 0]
+        end
+
+        it 'returns an array for an average of 82%' do
+          allow(route_c).to receive(:average_occupancy) { 82 }
+          expect(route_c.to_a).to eq [1, 1, 1, 1, 1, 1, 1, 0]
+        end
+      end
     end
   end
 end

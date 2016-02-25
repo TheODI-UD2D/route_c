@@ -23,11 +23,11 @@ module RouteC
     end
 
     def url
-      "#{config['base_url']}#{@direction}/#{@station}/#{@datetime}.json"
+      "#{Query.config['base_url']}#{@direction}/#{@station}/#{@datetime}.json"
     end
 
-    def config
-      @config ||= YAML.load_file 'config/config.yaml'
+    def self.config
+      YAML.load_file 'config/config.yaml'
     end
 
     def json
@@ -41,8 +41,24 @@ module RouteC
     def average_occupancy
       loads = json.first.last
       average = loads.values.inject{ |sum, el| sum + el }.to_f / loads.size
-      average.floor
+      average.round
     end
-    
+
+    def self.num_elements average, elements = Query.config['lights']
+      (elements * (average / 100.0)).round
+    end
+
+    def to_a
+      a = []
+      (Query.num_elements average_occupancy).times do
+        a.push 1
+      end
+
+      (Query.config['lights'] - a.count).times do
+        a.push 0
+      end
+
+      a
+    end
   end
 end
