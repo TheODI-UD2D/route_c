@@ -61,19 +61,19 @@ module RouteC
     end
 
     def to_lights
-      to_a.each_with_index do |b, i|
-        if b == 1
-          lights[i].on
-          sleep Query.config['interval']
-        end
-      end
-
+      to_a.each_with_index { |b, i| light_on(i) if b == 1 }
       sleep Query.config['pause']
+      lights.reverse.each_with_index { |l, i| light_off(i) }
+    end
 
-      lights.reverse.each do |l|
-        l.off
-        sleep Query.config['interval']
-      end
+    def light_on(index)
+      lights[index].on
+      sleep Query.config['interval']
+    end
+
+    def light_off(index)
+      lights[index].off
+      sleep Query.config['interval']
     end
 
     def lights
