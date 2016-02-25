@@ -1,5 +1,4 @@
 base_url: http://goingunderground.herokuapp.com/stations/arriving/
-lights: 8
 interval: 0.1
 pause: 1
 

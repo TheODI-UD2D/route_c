@@ -51,19 +51,24 @@ module RouteC
       average.round
     end
 
-    def self.num_elements average, elements = Query.config['lights']
+    def self.num_elements average, elements = Query.pins.count
       (elements * (average / 100.0)).round
     end
 
     def to_a
       num = Query.num_elements average_occupancy
-      Array.new(Query.config['lights']).each_with_index.map { |k,v| v + 1 <= num ? 1 : 0 }
+      Array.new(Query.pins.count).each_with_index.map { |k,v| v + 1 <= num ? 1 : 0 }
     end
 
     def to_lights
-      to_a.each_with_index { |b, i| light_on(i) if b == 1 }
+      to_a.each_with_index do |b, i|
+        if b == 1
+          lights[i].on
+          sleep Query.config['interval']
+        end
+      end
       sleep Query.config['pause']
-      lights.reverse.each_with_index { |l, i| light_off(i) }
+      lights.reverse.each { |l| l.off ; sleep Query.config['interval'] }
     end
 
     def light_on(index)
