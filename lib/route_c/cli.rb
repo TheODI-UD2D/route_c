@@ -23,6 +23,8 @@ module RouteC
       routec = RouteC::Query.new station, direction, options[:time]
       if options['console']
         puts routec.to_a.inspect
+      else
+        routec.to_lights
       end
     end
   end
