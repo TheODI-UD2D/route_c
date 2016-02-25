@@ -18,5 +18,9 @@ module RouteC
     it 'sets a default datetime' do
       expect(route_c.instance_variable_get("@datetime")).to eq("2015-09-23T16:20:00")
     end
+
+    it 'sets a url' do
+      expect(route_c.url).to eq('http://goingunderground.herokuapp.com/stations/arriving/southbound/euston/2015-09-23T16:20:00.json')
+    end
   end
 end

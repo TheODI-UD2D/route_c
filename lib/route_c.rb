@@ -16,8 +16,13 @@ module RouteC
         datetime
       end
     end
+
+    def url
+      "http://goingunderground.herokuapp.com/stations/arriving/#{@direction}/#{@station}/#{@datetime}.json"
+    end
+
     def self.config
-      YAML.load_file 'config/config.yaml' 
+      YAML.load_file 'config/config.yaml'
     end
   end
 end
