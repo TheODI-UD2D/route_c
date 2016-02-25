@@ -84,5 +84,9 @@ module RouteC
     def lights
       @lights ||= Query.pins.map { |p| PiPiper::Pin.new(pin: p, direction: :out) }
     end
+
+    def release
+      lights.map { |l| l.release }
+    end
   end
 end
