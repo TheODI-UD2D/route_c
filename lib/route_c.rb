@@ -1,5 +1,10 @@
 require 'yaml'
+require 'dotenv'
+require 'open-uri'
+
 require "route_c/version"
+
+Dotenv.load
 
 module RouteC
   class Query
@@ -23,6 +28,14 @@ module RouteC
 
     def config
       @config ||= YAML.load_file 'config/config.yaml'
+    end
+
+    def json
+      request = open(url, http_basic_authentication: [
+        ENV['SIR_HANDEL_USERNAME'],
+        ENV['SIR_HANDEL_PASSWORD']
+      ])
+      JSON.parse request.read
     end
   end
 end
