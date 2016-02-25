@@ -1,8 +1,10 @@
 require 'yaml'
+require 'json'
 require 'dotenv'
 require 'open-uri'
 
 require "route_c/version"
+require "route_c/cli"
 
 Dotenv.load
 
