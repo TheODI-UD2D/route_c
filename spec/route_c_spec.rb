@@ -94,5 +94,56 @@ module RouteC
         end
       end
     end
+
+    context 'light the lights', :vcr do
+      before(:each) do
+        allow_any_instance_of(Object).to receive(:sleep) { nil }
+        allow(PiPiper::Pin).to receive(:new) do
+          double = instance_double(PiPiper::Pin)
+          allow(double).to receive(:off)
+          double
+        end
+      end
+
+      it 'lights the correct lights for an average of 18%' do
+        expect(route_c.lights[0]).to receive(:on)
+        route_c.to_lights
+      end
+
+      it 'lights the correct lights for an average of 50%' do
+        allow(route_c).to receive(:to_a) { [1,1,1,1,0,0,0,0] }
+        expect(route_c.lights[0]).to receive(:on)
+        expect(route_c.lights[1]).to receive(:on)
+        expect(route_c.lights[2]).to receive(:on)
+        expect(route_c.lights[3]).to receive(:on)
+
+        route_c.to_lights
+      end
+
+      it 'lights the correct lights for an average of 82%' do
+        allow(route_c).to receive(:to_a) { [1,1,1,1,1,1,0,0] }
+        expect(route_c.lights[0]).to receive(:on)
+        expect(route_c.lights[1]).to receive(:on)
+        expect(route_c.lights[2]).to receive(:on)
+        expect(route_c.lights[3]).to receive(:on)
+        expect(route_c.lights[4]).to receive(:on)
+        expect(route_c.lights[5]).to receive(:on)
+
+        route_c.to_lights
+      end
+    end
+
+    it 'turns off the lights', :vcr do
+      allow_any_instance_of(Object).to receive(:sleep) { nil }
+
+      allow(PiPiper::Pin).to receive(:new) do
+        double = instance_double(PiPiper::Pin)
+        allow(double).to receive(:on)
+        expect(double).to receive(:off)
+        double
+      end
+
+      route_c.to_lights
+    end
   end
 end
