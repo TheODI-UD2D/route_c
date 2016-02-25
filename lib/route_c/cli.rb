@@ -1,4 +1,5 @@
 require 'thor'
+require 'pi_piper'
 
 module RouteC
   class CLI < Thor
@@ -27,10 +28,9 @@ module RouteC
         routec.to_lights
       end
     end
-    
+
     desc 'watch', 'wait for a button'
     def watch
-      require 'pi_piper'
 
       print 'Waiting for you to push the button... '
       PiPiper.watch pin: 21 do
@@ -38,11 +38,11 @@ module RouteC
         print 'Getting data... '
         routec = RouteC::Query.new 'euston', 'southbound', '2015-09-23T08:15'
         puts 'done'
- 
+
         print 'Lighting lights... '
         routec.to_lights
         puts 'done'
-      
+
         print 'Releasing lights... '
         routec.release
         puts 'done'
