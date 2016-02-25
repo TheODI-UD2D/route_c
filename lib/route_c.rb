@@ -51,16 +51,8 @@ module RouteC
     end
 
     def to_a
-      a = []
-      (Query.num_elements average_occupancy).times do
-        a.push 1
-      end
-
-      (Query.config['lights'] - a.count).times do
-        a.push 0
-      end
-
-      a
+      num = Query.num_elements average_occupancy
+      Array.new(Query.config['lights']).each_with_index.map { |k,v| v + 1 <= num ? 1 : 0 }
     end
   end
 end
