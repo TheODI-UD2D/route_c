@@ -18,11 +18,11 @@ module RouteC
     end
 
     def url
-      "http://goingunderground.herokuapp.com/stations/arriving/#{@direction}/#{@station}/#{@datetime}.json"
+      "#{config['base_url']}#{@direction}/#{@station}/#{@datetime}.json"
     end
 
-    def self.config
-      YAML.load_file 'config/config.yaml'
+    def config
+      @config ||= YAML.load_file 'config/config.yaml'
     end
   end
 end

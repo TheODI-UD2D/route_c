@@ -12,7 +12,7 @@ module RouteC
     end
 
     it 'has some config' do
-      expect(described_class.config['base_url']).to eq 'http://goingunderground.herokuapp.com/stations/arriving/'
+      expect(route_c.config['base_url']).to eq 'http://goingunderground.herokuapp.com/stations/arriving/'
     end
 
     it 'sets a default datetime' do
