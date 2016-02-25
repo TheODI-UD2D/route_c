@@ -40,5 +40,9 @@ module RouteC
         }
       ])
     end
+
+    it 'gets the average occupancy', :vcr do
+      expect(route_c.average_occupancy).to eq(18)
+    end
   end
 end

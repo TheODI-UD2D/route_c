@@ -37,5 +37,12 @@ module RouteC
       ])
       JSON.parse request.read
     end
+
+    def average_occupancy
+      loads = json.first.last
+      average = loads.values.inject{ |sum, el| sum + el }.to_f / loads.size
+      average.floor
+    end
+    
   end
 end
