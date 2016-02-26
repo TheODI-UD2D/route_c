@@ -46,7 +46,7 @@ module RouteC
       PiPiper.watch pin: 21 do
         puts 'done'
         print 'Getting data... '
-        routec = RouteC::Query.new 'euston', 'southbound', '2015-09-23T08:15'
+        routec = RouteC::Query.new 'euston', 'southbound'
         puts 'done'
 
         print 'Lighting lights... '
