@@ -30,7 +30,17 @@ module RouteC
     end
 
     desc 'watch', 'wait for a button'
+    method_option :daemon,
+                  type: :boolean,
+                  default: false,
+                  desc: 'Creates a file `.pid` with the current process ID'
     def watch
+      if options['daemon']
+        file = File.new('.pid', 'w+')
+        file.write(Process.pid)
+        file.rewind
+        file.close
+      end
 
       print 'Waiting for you to push the button... '
       PiPiper.watch pin: 21 do
