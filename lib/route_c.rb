@@ -7,5 +7,6 @@ require 'pi_piper'
 Dotenv.load
 
 require "route_c/version"
+require "route_c/lights"
 require "route_c/query"
 require "route_c/cli"
