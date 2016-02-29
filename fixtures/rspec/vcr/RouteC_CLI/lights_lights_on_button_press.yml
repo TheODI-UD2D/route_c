@@ -1,0 +1,42 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://<SIR_HANDEL_USERNAME>:<SIR_HANDEL_PASSWORD>@goingunderground.herokuapp.com/stations/arriving/southbound/euston/2015-09-23T08:15.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Mon, 29 Feb 2016 10:24:57 GMT
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Vary:
+      - Accept
+      X-Content-Type-Options:
+      - nosniff
+      Content-Length:
+      - '832'
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '[[{"segment":1193,"number":0,"timeStamp":"2015-09-23T07:11:42.012Z"},{"CAR_A":97.02272727272727,"CAR_B":80.56989247311827,"CAR_C":66.51315789473684,"CAR_D":73.3768115942029}],[{"segment":1193,"number":0,"timeStamp":"2015-09-22T23:07:11.575Z"},{"CAR_A":16.650602409638555,"CAR_B":10.929577464788732,"CAR_C":15.414285714285715,"CAR_D":15.185714285714285}],[{"segment":1193,"number":0,"timeStamp":"2015-09-22T21:50:17.475Z"},{"CAR_A":27.041666666666668,"CAR_B":21.36,"CAR_C":13.95,"CAR_D":6.521739130434782}],[{"segment":1193,"number":0,"timeStamp":"2015-09-22T16:50:48.528Z"},{"CAR_A":41.75,"CAR_B":32.36363636363637,"CAR_C":26.11111111111111,"CAR_D":27.11111111111111}],[{"segment":1193,"number":0,"timeStamp":"2015-09-22T15:42:26.012Z"},{"CAR_A":34.05494505494506,"CAR_B":24.7,"CAR_C":14.582089552238806,"CAR_D":6.943661971830986}]]'
+    http_version: 
+  recorded_at: Wed, 23 Sep 2015 06:48:00 GMT
+recorded_with: VCR 3.0.1
