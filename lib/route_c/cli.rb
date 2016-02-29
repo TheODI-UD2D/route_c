@@ -44,6 +44,15 @@ module RouteC
 
       print 'Waiting for you to push the button... '
       PiPiper.watch pin: 21 do
+        watching
+      end
+
+      PiPiper.wait
+    end
+
+    private
+
+      def watching
         puts 'done'
         print 'Getting data... '
         routec = RouteC::Query.new 'euston', 'southbound'
@@ -54,13 +63,10 @@ module RouteC
         puts 'done'
 
         print 'Releasing lights... '
-        routec.release
+        routec.lights.release
         puts 'done'
 
         print 'Waiting for you to push the button... '
       end
-
-      PiPiper.wait
-    end
   end
 end
