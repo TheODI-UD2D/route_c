@@ -44,14 +44,13 @@ module RouteC
 
       print 'Waiting for you to push the button... '
       PiPiper.watch pin: Lights.button do
-        watching
+        RouteC::CLI.new.watching
       end
 
       PiPiper.wait
     end
 
-    private
-
+    no_tasks do
       def watching
         puts 'done'
         print 'Getting data... '
@@ -68,5 +67,6 @@ module RouteC
 
         print 'Waiting for you to push the button... '
       end
+    end
   end
 end
