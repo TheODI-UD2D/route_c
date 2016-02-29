@@ -11,10 +11,6 @@ module RouteC
       Timecop.return
     end
 
-    it 'has some config' do
-      expect(described_class.config['base_url']).to eq 'http://goingunderground.herokuapp.com/stations/arriving/'
-    end
-
     it 'sets a default datetime' do
       expect(route_c.instance_variable_get("@datetime")).to eq("2015-09-23T16:20:00")
     end
@@ -100,7 +96,7 @@ module RouteC
 
       allow(PiPiper::Pin).to receive(:new) do |args|
         double = instance_double(PiPiper::Pin)
-        expect(double).to receive(:on) if args[:pin] == Lights.pins.first
+        expect(double).to receive(:on) if args[:pin] == Config.new.lights.first
         allow(double).to receive(:off)
         double
       end

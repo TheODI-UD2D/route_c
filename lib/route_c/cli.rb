@@ -43,7 +43,7 @@ module RouteC
       end
 
       print 'Waiting for you to push the button... '
-      PiPiper.watch pin: Lights.button do
+      PiPiper.watch pin: Config.new.button do
         RouteC::CLI.new.watching
       end
 
