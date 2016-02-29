@@ -13,7 +13,7 @@ module RouteC
       end
 
       (1..8).each do |i|
-        arr = Array.new(Lights.pins.count).each_with_index.map { |k,v| v + 1 <= i ? 1 : 0 }
+        arr = Array.new(Config.new.lights.count).each_with_index.map { |k,v| v + 1 <= i ? 1 : 0 }
 
         it "lights #{i} lights with an array like #{arr}" do
           lights = described_class.new(arr)

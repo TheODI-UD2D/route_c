@@ -1,0 +1,12 @@
+base_url: http://example.com/stations/arriving/
+interval: 0.2
+lights:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+button: 10

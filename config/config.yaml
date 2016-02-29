@@ -1,4 +1,16 @@
 base_url: http://goingunderground.herokuapp.com/stations/arriving/
 interval: 0.1
 pause: 1
+lights:
+  - 15
+  - 18
+  - 23
+  - 24
+  - 25
+  - 8
+  - 7
+  - 12
 
+button: 21
+station: euston
+direction: southbound

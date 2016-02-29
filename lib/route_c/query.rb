@@ -1,7 +1,7 @@
 module RouteC
   class Query
     def initialize(station, direction, datetime = nil)
-      @station, @direction, @datetime = station, direction, set_datetime(datetime)
+      @station, @direction, @datetime, @config = station, direction, set_datetime(datetime), Config.new
     end
 
     def set_datetime(datetime)
@@ -15,11 +15,7 @@ module RouteC
     end
 
     def url
-      "#{Query.config['base_url']}#{@direction}/#{@station}/#{@datetime}.json"
-    end
-
-    def self.config
-      YAML.load_file 'config/config.yaml'
+      "#{@config.base_url}#{@direction}/#{@station}/#{@datetime}.json"
     end
 
     def json
@@ -36,13 +32,13 @@ module RouteC
       average.round
     end
 
-    def self.num_elements average, elements = Lights.pins.count
+    def self.num_elements average, elements = Config.new.lights.count
       (elements * (average / 100.0)).round
     end
 
     def to_a
       num = Query.num_elements average_occupancy
-      Array.new(Lights.pins.count).each_with_index.map { |k,v| v + 1 <= num ? 1 : 0 }
+      Array.new(@config.lights.count).each_with_index.map { |k,v| v + 1 <= num ? 1 : 0 }
     end
 
     def to_lights
