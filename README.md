@@ -8,3 +8,5 @@
 # Crudely-drawn circuit
 
 ![How to Pi](http://i.imgur.com/35a4myB.png)
+
+You might also need the [Treasure Map](http://pinout.xyz/)
