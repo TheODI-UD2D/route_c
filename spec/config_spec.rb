@@ -25,6 +25,14 @@ module RouteC
         expect(config.button).to eq(21)
       end
 
+      it 'sets station' do
+        expect(config.station).to eq('euston')
+      end
+
+      it 'sets direction' do
+        expect(config.direction).to eq('southbound')
+      end
+
     end
 
     context 'user specified config' do
@@ -57,6 +65,14 @@ module RouteC
 
       it 'sets button' do
         expect(@config.button).to eq(10)
+      end
+
+      it 'sets station' do
+        expect(@config.station).to eq('euston')
+      end
+
+      it 'sets direction' do
+        expect(@config.direction).to eq('southbound')
       end
 
     end

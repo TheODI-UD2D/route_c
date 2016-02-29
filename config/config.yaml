@@ -12,3 +12,5 @@ lights:
   - 12
 
 button: 21
+station: euston
+direction: southbound

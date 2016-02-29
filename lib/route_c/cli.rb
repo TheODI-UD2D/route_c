@@ -43,7 +43,7 @@ module RouteC
       end
 
       print 'Waiting for you to push the button... '
-      PiPiper.watch pin: Config.new.button do
+      PiPiper.watch pin: config.button do
         RouteC::CLI.new.watching
       end
 
@@ -54,7 +54,7 @@ module RouteC
       def watching
         puts 'done'
         print 'Getting data... '
-        routec = RouteC::Query.new 'euston', 'southbound'
+        routec = RouteC::Query.new config.station, config.direction
         puts 'done'
 
         print 'Lighting lights... '
@@ -66,6 +66,10 @@ module RouteC
         puts 'done'
 
         print 'Waiting for you to push the button... '
+      end
+
+      def config
+        @config ||= Config.new
       end
     end
   end
