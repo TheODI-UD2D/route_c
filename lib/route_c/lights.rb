@@ -25,8 +25,11 @@ module RouteC
     end
 
     def self.pins
-      YAML.load_file 'config/pins.yaml'
+      YAML.load_file('config/pins.yaml')['lights']
     end
 
+    def self.button
+      YAML.load_file('config/pins.yaml')['button']
+    end
   end
 end
