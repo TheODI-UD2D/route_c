@@ -1,9 +1,24 @@
 language: ruby
 rvm:
-  - 2.3.0
-  - 2.1.5
+- 2.3.0
+- 2.1.5
 before_install: gem install bundler -v 1.11.2
 env:
   global:
-    - SIR_HANDEL_USERNAME=foo
-    - SIR_HANDEL_PASSWORD=bar
+  - SIR_HANDEL_USERNAME=foo
+  - SIR_HANDEL_PASSWORD=bar
+  - secure: uXgk++CEZft7nv8Qw3YwWTwJ3pGlnmaVLra3lv1GCwkIFZJZn/B2MSMlVsQbOK4h/ABsLif3gu+L4lvAXzwLOK6n6DfRCkdj3KZ/nEbLZoxTZqxSe/w1g74Dt009Ty4Vcz0881hMgK9WfoycELPc03Oscb31cQpVwgwaZ9imjQzoqqf+b/weF0CWCOKQLcDUjrmpiTwCR7R15FoTuLfbss9lT5FEWnuX4f5VPH2GN7ROL4T8GcatLGG2t0XPqAlfK4sFqBbJn931KX2IM0EY1GmcBkpvoO7y7YCspDm6/PJAFc0t93pKehqVZsUDzC5Jc/9pXZJwOEoBTB1stj0mWZqAWk7E0oEsJrryuu6hcXk/MOOOTQ6iat4EB2rmCnj1pY+2aIRIms9VFWplKjG42CcHKwVYy4LCCwR4UpI982k6EzVt9Heq9FyNj0OsWTtjpTFjSPAFhv16BzF9bUm1Um8Nk61L0OWVnOBJGlqyQegQcRMZ1/wr2r6RVP2GOz/JhFqQCDHlDsJY0Y1jiwzbcqJha0ksAA9TJ01rWES4qPwSUkH7TRo3b8qS+4xc9ZZDBIkZ+RFuB6hmLukbCisBSKqNN9wJmLq/UBClKi78boG6PdlH6X/MfSCwtb1IBk5c2xWCxQcJv6gyqRmSVBL5AiqoBdc0lxmvGrS5ZgQsco4=
+  - secure: cesErL4ZY53X15gemEF+7EJmk7XnGhx2ktDpl7wH55UMFLaKee7m1t17qdb+gOLw0H82Z8iDtCU9iCmi542Ns/ZHd7S/UH4G492o8sP5f+a1Ad9vCj1MnYrcvLk+wuexlFAlCal5RVGEDKY7HwYItLUFScbPAqVteO7Xy0GyVLtceUJ9y3jhSH3bUekSZsNQ0vPJzB4p0CdRrp28FnqgvHzOc83xX0D4vg6jpxsXH+X7+PlMJX+00yHFZBizTUXHxv7Os3Uj7toM7iOLEG6ULtebvryqAyovjYHChTiz3dFQIzRO4+MzZFjWGnY+tIyY9lzF66yvYX7VfFf0gB3/EhrFxCo8SZBIIY5n5yf9Q7aq1iBRVII0qvQbz3AoAlSNAvASSD0e8Q/Zvf7boO0iD+Geywvb18/T9/9EYMvhJba+22qTRZtT6sGMLYIsPIb9GM1DQ7+gtpWHFlMTYCwoMJRoVT/2pw0qqUJvCZE8iumD/l/6M/pnW7biHrRRBwZ8zeOj4ovBlj3LxIFDwWKNrLvH2KU3qasJYfQNRBIJUK8bGrZCCWE0riNp+uQB5Z1x6OtPkIAnkgPkWACAhcOy/Jr8nYZPtwmKY0+6/rTfXZFwTshvZD6kw9xPEdoTf9001jdquUnKLqQsHf0vYU0+MeusqJHaGkncAjffMmwvPIk=
+after_success:
+- export GEM_VERSION=`ruby -e "puts Gem::Specification.load(Dir['*.gemspec'].first).version.to_s"`
+- '[ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && curl
+  -v -X POST -d ''{"ref":"refs/tags/''$GEM_VERSION''","sha":"''$TRAVIS_COMMIT''"}''  --header
+  "Content-Type:application/json" -u $GITHUB_USER:$GITHUB_PASSWORD "https://api.github.com/repos/$TRAVIS_REPO_SLUG/git/refs"'
+deploy:
+  provider: rubygems
+  api_key:
+    secure: nJWVa1ICOlD46KXaVlSJ9DQWdaaZii42e5tZo2LHutldII1rXouQGh/wNTWnvvBBmqei3OrH/pGkZMTc50POkhWyfRbEbSUZaLNgpttBQjwWnas+t5jgc9ShB20fPvk9OMb+e3CPZyGLj55p3t9/CO5gErSyVPFY0Cur4GQs+FLi95rzp5msTknWVoMGWKdnR6UBERitaIT8mohcBhx1i9ftCwulntk9DAaR0I/kaU9OdFmUvG5dIPbisx98enRDNVscc+k8rg9WhG1VFYTA4XYGTNV9I4t3/HdPZVZz5EBA8p4qSoYWTlfxaniikUm3iq+k9l2kSojLQeacnfpmQDCVrM0IwwZclpdu9y142MB8g9DLUtqtaPGRW8ezxM/3Syo/tBMmoY6ObEOtLxpH8CpGqDQTTwCVKxq1QfSEpczpBY8y4Lkok79+CyIzByM61fWjOHy8nt0ZokTv0mCOVHD/MqER/IFujyq6Ad5+g/yUUU/BRpze3UxkUE7xn6+Mm/cOs01Qg+aPuyeN6aQa1YHe4XU2EXYX8lZXlfsHTIgovuEDlnklridj975tDI5gPxK2pG/44OMqtI0yygOtANKrwUPDe0RttnFpWI3kqdFCgTTg06mnR3TzcruCvgEMkSJkrP0j4AY7B7tgI7xUpJivQQsUvRK1Vj41fKgBe9A=
+  gem: route_c
+  on:
+    tags: true
+    repo: TheODI-UD2D/route_c
