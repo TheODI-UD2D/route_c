@@ -11,19 +11,21 @@
 # Description:       This service is used to manage route_c
 ### END INIT INFO
 
+export SIR_HANDEL_USERNAME={YOUR USERNAME}
+export SIR_HANDEL_PASSWORD={YOUR PASSWORD}
 
 case "$1" in
     start)
         echo "Starting route_c"
-        cd /home/pi/route_c && sudo bundle exec routec watch --daemon
+        sudo -E routec watch --daemon
         ;;
     stop)
         echo "Stopping route_c"
-        PID=`cat /home/pi/route_c/.pid` && sudo kill -15 $PID
+        PID=`cat /tmp/.pid` && sudo kill -15 $PID
         ;;
     restart)
-        echo "Stopping route_c"
-        PID=`cat /home/pi/route_c/.pid` && sudo kill -15 $PID && cd /home/pi/route_c && sudo bundle exec routec watch --daemon
+        echo "Restarting route_c"
+        PID=`cat /tmp/.pid` && sudo kill -15 $PID && sudo -E routec watch --daemon
         ;;
 esac
 
