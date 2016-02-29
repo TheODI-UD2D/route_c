@@ -104,5 +104,23 @@ module RouteC
       route_c.to_lights
     end
 
+    context 'translate nb and sb' do
+      it 'translates nb' do
+        expect(described_class.boundify 'nb').to eq 'northbound'
+      end
+
+      it 'translates sb' do
+        expect(described_class.boundify 'sb').to eq 'southbound'
+      end
+
+      it 'translates south' do
+        expect(described_class.boundify 'sb').to eq 'southbound'
+      end
+
+      it 'objects to nonsense' do
+        expect { described_class.boundify 'burp' }.to raise_error "Invalid direction 'burp'"
+      end
+    end
+
   end
 end

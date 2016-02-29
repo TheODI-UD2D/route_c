@@ -48,5 +48,17 @@ module RouteC
     def lights
       @lights ||= Lights.new(to_a)
     end
+
+    def self.boundify direction
+      case direction
+        when /^n/
+          'northbound'
+        when /^s/
+          'southbound'
+        else
+          raise "Invalid direction '#{direction}'"
+      end
+    end
+
   end
 end
