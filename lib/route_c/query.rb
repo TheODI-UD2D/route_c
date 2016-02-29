@@ -60,5 +60,8 @@ module RouteC
       end
     end
 
+    def self.valid_station station
+      Config.new.stations.include? station.downcase.gsub(' ', '_')
+    end
   end
 end

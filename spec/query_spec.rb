@@ -122,5 +122,22 @@ module RouteC
       end
     end
 
+    context 'validate station' do
+      it 'likes a known station' do
+        expect(described_class.valid_station 'euston').to eq true
+      end
+
+      it 'objects to a duff station' do
+        expect(described_class.valid_station 'Llaniog').to eq false
+      end
+
+      it 'can deal with mixed-case' do
+        expect(described_class.valid_station 'Brixton').to eq true
+      end
+
+      it 'can handle spaces' do
+        expect(described_class.valid_station 'Oxford Circus').to eq true
+      end
+    end
   end
 end
