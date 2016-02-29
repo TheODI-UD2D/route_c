@@ -36,7 +36,7 @@ module RouteC
                   desc: 'Creates a file `.pid` with the current process ID'
     def watch
       if options['daemon']
-        file = File.new('.pid', 'w+')
+        file = File.new(File.join('/', 'tmp', '.pid'), 'w+')
         file.write(Process.pid)
         file.rewind
         file.close
