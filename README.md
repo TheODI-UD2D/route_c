@@ -4,3 +4,7 @@
 [![Code Climate](http://img.shields.io/codeclimate/github/TheODI-UD2D/route_c.svg?style=flat-square)](https://codeclimate.com/github/TheODI-UD2D/route_c)
 [![Gem Version](http://img.shields.io/gem/v/route_c.svg?style=flat-square)](https://rubygems.org/gems/route_c)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://TheODI-UD2D.mit-license.org)
+
+# Crudely-drawn circuit
+
+![How to Pi](http://i.imgur.com/35a4myB.png)
