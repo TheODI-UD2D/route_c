@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://<SIR_HANDEL_USERNAME>:<SIR_HANDEL_PASSWORD>@goingunderground.herokuapp.com/stations/arriving/southbound/euston/2015-09-23T08:15.json
+    uri: http://<SIR_HANDEL_USERNAME>:<SIR_HANDEL_PASSWORD>@goingunderground.herokuapp.com/stations/arriving/southbound/euston/2015-09-23T7:48:00.json
     body:
       encoding: US-ASCII
       string: ''
@@ -21,7 +21,7 @@ http_interactions:
       Server:
       - Cowboy
       Date:
-      - Mon, 29 Feb 2016 10:24:57 GMT
+      - Mon, 29 Feb 2016 10:42:55 GMT
       Connection:
       - keep-alive
       Content-Type:
