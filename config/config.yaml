@@ -14,3 +14,23 @@ lights:
 button: 21
 station: euston
 direction: southbound
+
+valid_stations:
+
+stations:
+  - walthamstow_central
+  - blackhorse_road
+  - tottenham_hale
+  - seven_sisters
+  - finsbury_park
+  - highbury_and_islington
+  - kings_cross_st_pancras
+  - euston
+  - warren_street
+  - oxford_circus
+  - green_park
+  - victoria
+  - pimlico
+  - vauxhall
+  - stockwell
+  - brixton

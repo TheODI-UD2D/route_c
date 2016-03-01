@@ -104,5 +104,46 @@ module RouteC
       route_c.to_lights
     end
 
+    context 'translate nb and sb' do
+      it 'translates nb' do
+        expect(described_class.boundify 'nb').to eq 'northbound'
+      end
+
+      it 'translates sb' do
+        expect(described_class.boundify 'sb').to eq 'southbound'
+      end
+
+      it 'translates south' do
+        expect(described_class.boundify 'sb').to eq 'southbound'
+      end
+
+      it 'objects to nonsense' do
+        expect { described_class.boundify 'burp' }.to raise_exception do |exception|
+          expect(exception).to be_a RouteCException
+          expect(exception.status).to eq "Invalid direction 'burp'"
+        end
+      end
+    end
+
+    context 'validate station' do
+      it 'likes a known station' do
+        expect(described_class.validate_station 'euston').to eq 'euston'
+      end
+
+      it 'objects to a duff station' do
+        expect { described_class.validate_station 'Llaniog' }.to raise_exception do |exception|
+          expect(exception).to be_a RouteCException
+          expect(exception.status).to eq "Unknown station 'Llaniog'"
+        end
+      end
+
+      it 'can deal with mixed-case' do
+        expect(described_class.validate_station 'Brixton').to eq 'brixton'
+      end
+
+      it 'can handle spaces' do
+        expect(described_class.validate_station 'Oxford Circus').to eq 'oxford_circus'
+      end
+    end
   end
 end

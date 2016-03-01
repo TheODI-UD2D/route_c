@@ -9,7 +9,7 @@ module RouteC
     end
     map %w(-v --version) => :version
 
-    desc 'lights', 'Show lights for station and direction'
+    desc 'lights <STATION> <DIRECTION> [--datetime]', 'Show lights for station and direction'
     method_option :time,
                   type: :string,
                   default: '2015-09-23T18:00',
@@ -21,7 +21,13 @@ module RouteC
                   desc: 'Dump output to console (instead of LEDs)'
 
     def lights station, direction
-      routec = RouteC::Query.new station, direction, options[:time]
+      begin
+        routec = RouteC::Query.new station, direction, options[:time]
+      rescue RouteCException => rce
+        puts rce.status
+        exit 1
+      end
+
       if options['console']
         puts routec.to_a.inspect
       else

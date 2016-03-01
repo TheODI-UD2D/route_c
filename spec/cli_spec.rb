@@ -38,6 +38,10 @@ module RouteC
       subject.lights('euston', 'southbound')
     end
 
+    it 'barfs on bad parameters' do
+      expect { subject.lights 'Llaniog', 'sb'}.to exit_with_status 1
+    end
+
     it 'watches a for a button press', :vcr do
       expect(PiPiper).to receive(:watch)
       expect(PiPiper).to receive(:wait)
