@@ -118,25 +118,31 @@ module RouteC
       end
 
       it 'objects to nonsense' do
-        expect { described_class.boundify 'burp' }.to raise_error "Invalid direction 'burp'"
+        expect { described_class.boundify 'burp' }.to raise_exception do |exception|
+          expect(exception).to be_a RouteCException
+          expect(exception.status).to eq "Invalid direction 'burp'"
+        end
       end
     end
 
     context 'validate station' do
       it 'likes a known station' do
-        expect(described_class.valid_station 'euston').to eq true
+        expect(described_class.validate_station 'euston').to eq 'euston'
       end
 
       it 'objects to a duff station' do
-        expect(described_class.valid_station 'Llaniog').to eq false
+        expect { described_class.validate_station 'Llaniog' }.to raise_exception do |exception|
+          expect(exception).to be_a RouteCException
+          expect(exception.status).to eq "Unknown station 'Llaniog'"
+        end
       end
 
       it 'can deal with mixed-case' do
-        expect(described_class.valid_station 'Brixton').to eq true
+        expect(described_class.validate_station 'Brixton').to eq 'brixton'
       end
 
       it 'can handle spaces' do
-        expect(described_class.valid_station 'Oxford Circus').to eq true
+        expect(described_class.validate_station 'Oxford Circus').to eq 'oxford_circus'
       end
     end
   end

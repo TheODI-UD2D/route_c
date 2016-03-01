@@ -1,7 +1,10 @@
 module RouteC
   class Query
     def initialize(station, direction, datetime = nil)
-      @station, @direction, @datetime, @config = station, direction, set_datetime(datetime), Config.new
+      @station = Query.validate_station(station)
+      @direction = Query.boundify(direction)
+      @datetime = set_datetime(datetime)
+      @config = Config.new
     end
 
     def set_datetime(datetime)
@@ -56,12 +59,22 @@ module RouteC
         when /^s/
           'southbound'
         else
-          raise "Invalid direction '#{direction}'"
+          raise RouteCException.new "Invalid direction '#{direction}'"
       end
     end
 
-    def self.valid_station station
-      Config.new.stations.include? station.downcase.gsub(' ', '_')
+    def self.validate_station station
+      s = station.downcase.gsub(' ', '_')
+      return s if Config.new.stations.include? s
+      raise RouteCException.new "Unknown station '#{station}'"
+    end
+  end
+
+  class RouteCException < Exception
+    attr_reader :status
+
+    def initialize status
+      @status = status
     end
   end
 end
